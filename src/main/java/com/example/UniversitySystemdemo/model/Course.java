@@ -1,9 +1,9 @@
 package com.example.UniversitySystemdemo.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,15 +12,20 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class Course {
 
     @Id
     @GeneratedValue
-    long courseId;
-    String title;
-    int classSize;
-    int waitListSize;
-    String days;
+    private long courseId;
+    private String title;
+    private int classSize;
+    private int waitListSize;
+    private String days;
+
+    @ManyToOne
+    @JoinColumn(name = "professor_id")
+    private Professor professor;
 
     public Course(String title, int classSize, int waitListSize, String days) {
         this.title = title;
